@@ -1,0 +1,138 @@
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 24px;
+    margin-bottom: 62px;
+    background-color: #fff;
+    color: #000;
+    position: relative;
+    max-width: 240px;
+    min-width: 240px;
+}
+
+article {
+    padding-top: 42px;
+}
+
+@media (min-width: 380px) {
+    article {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        
+    }
+}
+
+
+.card img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.card p {
+    text-align: center;
+    color: #8d8c8c;
+    font-weight: bold;
+    margin: 0;
+    margin-top: 48px;
+}
+
+.card h4 {
+    margin: 22px 0;
+    font-size: 16px;
+}
+
+.card_tipos {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 12px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.badge {
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+/* Estilos específicos para cada tipo */
+.badge.normal {
+    background-color: #A8A77A;
+    color: #fff;
+}
+
+.badge.fighting {
+    background-color: #C22E28;
+    color: #fff;
+}
+
+.badge.flying {
+    background-color: #A98FF3;
+    color: #fff;
+}
+
+.badge.grass {
+    background-color: #7AC74C;
+    color: #fff;
+}
+
+.badge.fire {
+    background-color: #EE8130;
+}
+
+.badge.water {
+    background-color: #6390F0;
+}
+
+.badge.electric {
+    background-color: #F7D02C;
+}
+
+.badge.ice {
+    background-color: #96D9D6;
+}
+
+.badge.poison {
+    background-color: #A33EA1;
+}
+
+.badge.ground {
+    background-color: #E2BF65;
+}
+
+.badge.psychic {
+    background-color: #F95587;
+}
+
+.badge.bug {
+    background-color: #A6B91A;
+}
+
+.badge.rock {
+    background-color: #B6A136;
+}
+
+.badge.ghost {
+    background-color: #735797;
+}
+
+.badge.dragon {
+    background-color: #6F35FC;
+}
+
+.badge.dark {
+    background-color: #705746;
+}
+
+.badge.steel {
+    background-color: #B7B7CE;
+}
+
+.badge.fairy {
+    background-color: #D685AD;
+}
