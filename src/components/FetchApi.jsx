@@ -36,7 +36,7 @@ export const FetchApi = () => {
             const pokemonResponse = await fetch(pokemon.url);
             const pokemonData = await pokemonResponse.json();
 
-            const skills = pokemonData.abilities.map((ability) => ability.ability.name);
+            const skills = pokemonData.abilities.map((ability) => ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1));
             const tipo = pokemonData.types.map((t) => tipoMapping[t.type.name] || t.type.name);
 
             return {
