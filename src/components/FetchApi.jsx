@@ -1,6 +1,27 @@
 import { useEffect, useState } from "react";
 import '../styles/fetchApi.css';
 
+const tipoMapping = {
+    normal: 'Normal',
+    fighting: 'Lucha',
+    flying: 'Volador',
+    grass: 'Planta',
+    fire: 'Fuego',
+    water: 'Agua',
+    electric: 'Eléctrico',
+    ice: 'Hielo',
+    poison: 'Veneno',
+    ground: 'Tierra',
+    psychic: 'Psíquico',
+    bug: 'Bicho',
+    rock: 'Roca',
+    ghost: 'Fantasma',
+    dragon: 'Dragón',
+    dark: 'Siniestro',
+    steel: 'Acero',
+    fairy: 'Hada',
+};
+
 export const FetchApi = () => {
     const [datos, setDatos] = useState([]);
 
@@ -9,13 +30,14 @@ export const FetchApi = () => {
         const response = await fetch(url);
         const data = await response.json();
         const { results } = data;
-        // Realizar una nueva solicitud para cada Pokémon y extraer datos adicionales
+
+        // Nueva solicitud para extraer + datos
         const pokemonDataPromises = results.map(async (pokemon) => {
             const pokemonResponse = await fetch(pokemon.url);
             const pokemonData = await pokemonResponse.json();
 
             const skills = pokemonData.abilities.map((ability) => ability.ability.name);
-            const tipo = pokemonData.types.map(t => t.type.name.charAt(0).toUpperCase() + t.type.name.slice(1));
+            const tipo = pokemonData.types.map((t) => tipoMapping[t.type.name] || t.type.name);
 
             return {
                 id: pokemonData.id,
@@ -28,8 +50,7 @@ export const FetchApi = () => {
             };
         });
 
-        const pokemonData = await Promise.all(pokemonDataPromises)
-        console.log(pokemonData)
+        const pokemonData = await Promise.all(pokemonDataPromises);
         setDatos(pokemonData);
     };
 
@@ -39,8 +60,8 @@ export const FetchApi = () => {
 
     return (
         <article className="contenedor">
-            
-            {datos.map((dato, index) => (
+
+            {datos.map(dato => (
                 <section key={dato.id} className="card contenedor">
 
                     <img src={dato.image} alt={dato.name} />

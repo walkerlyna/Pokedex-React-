@@ -3,13 +3,14 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    border-radius: 24px;
+    border-radius: 28px;
     margin-bottom: 62px;
     background-color: #fff;
     color: #000;
     position: relative;
     max-width: 240px;
     min-width: 240px;
+    box-shadow: 0 2px 17px rgba(0, 0, 0, 0.4);
 }
 
 article {
@@ -21,7 +22,7 @@ article {
         display: flex;
         flex-wrap: wrap;
         gap: 8px;
-        
+
     }
 }
 
@@ -43,15 +44,20 @@ article {
 
 .card h4 {
     margin: 22px 0;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .card_tipos {
     display: flex;
     gap: 8px;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     color: #fff;
     font-weight: bold;
+}
+
+.card span {
+    font-size: 14px;
+    font-weight: 800;
 }
 
 .badge {
@@ -63,76 +69,72 @@ article {
 /* Estilos específicos para cada tipo */
 .badge.normal {
     background-color: #A8A77A;
-    color: #fff;
 }
 
-.badge.fighting {
+.badge.lucha {
     background-color: #C22E28;
-    color: #fff;
 }
 
-.badge.flying {
+.badge.volador {
     background-color: #A98FF3;
-    color: #fff;
 }
 
-.badge.grass {
+.badge.planta {
     background-color: #7AC74C;
-    color: #fff;
 }
 
-.badge.fire {
+.badge.fuego {
     background-color: #EE8130;
 }
 
-.badge.water {
+.badge.agua {
     background-color: #6390F0;
 }
 
-.badge.electric {
+.badge.eléctrico {
     background-color: #F7D02C;
 }
 
-.badge.ice {
+.badge.hielo {
     background-color: #96D9D6;
 }
 
-.badge.poison {
+.badge.veneno {
     background-color: #A33EA1;
 }
 
-.badge.ground {
+.badge.tierra {
     background-color: #E2BF65;
 }
 
-.badge.psychic {
+.badge.psíquico {
     background-color: #F95587;
 }
 
-.badge.bug {
+.badge.bicho {
     background-color: #A6B91A;
 }
 
-.badge.rock {
+.badge.roca {
     background-color: #B6A136;
 }
 
-.badge.ghost {
+.badge.fantasma {
     background-color: #735797;
 }
 
-.badge.dragon {
+.badge.dragón {
     background-color: #6F35FC;
 }
 
-.badge.dark {
+.badge.siniestro {
     background-color: #705746;
 }
 
-.badge.steel {
+.badge.acero {
     background-color: #B7B7CE;
 }
 
-.badge.fairy {
+.badge.hada {
     background-color: #D685AD;
 }
