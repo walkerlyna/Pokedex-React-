@@ -1,57 +1,36 @@
 import { useEffect, useState } from "react";
+import { mapPokemonData } from "../js/mapPokemonData";
 import '../styles/fetchApi.css';
 
-const tipoMapping = {
-    normal: 'Normal',
-    fighting: 'Lucha',
-    flying: 'Volador',
-    grass: 'Planta',
-    fire: 'Fuego',
-    water: 'Agua',
-    electric: 'Eléctrico',
-    ice: 'Hielo',
-    poison: 'Veneno',
-    ground: 'Tierra',
-    psychic: 'Psíquico',
-    bug: 'Bicho',
-    rock: 'Roca',
-    ghost: 'Fantasma',
-    dragon: 'Dragón',
-    dark: 'Siniestro',
-    steel: 'Acero',
-    fairy: 'Hada',
-};
-
 export const FetchApi = () => {
-    const [datos, setDatos] = useState([]);
+    const [datos, setDatos] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState(null)
 
     const doFetch = async () => {
-        const url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=151';
-        const response = await fetch(url);
-        const data = await response.json();
-        const { results } = data;
+        try {
+            const url = 'https://pokeapi.co/api/v2/pokemon?offset=0&limit=151';
+            const response = await fetch(url);
+            const data = await response.json();
+            const { results } = data;
 
-        // Nueva solicitud para extraer + datos
-        const pokemonDataPromises = results.map(async (pokemon) => {
-            const pokemonResponse = await fetch(pokemon.url);
-            const pokemonData = await pokemonResponse.json();
+            // Una segunda llamada a la API para obtener el URL de cada Pokemon
+            const pokemonDataPromises = results.map(async (pokemon) => {
+                const pokemonResponse = await fetch(pokemon.url);
+                const pokemonData = await pokemonResponse.json();
+                return mapPokemonData(pokemonData);
+            });
 
-            const skills = pokemonData.abilities.map((ability) => ability.ability.name.charAt(0).toUpperCase() + ability.ability.name.slice(1));
-            const tipo = pokemonData.types.map((t) => tipoMapping[t.type.name] || t.type.name);
+            const pokemonData = await Promise.all(pokemonDataPromises);
+            setDatos(pokemonData);
 
-            return {
-                id: pokemonData.id,
-                name: pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1),
-                altura: pokemonData.height,
-                skills: skills,
-                image: pokemonData.sprites.front_default,
-                imageShiny: pokemonData.sprites.front_shiny,
-                tipo: tipo
-            };
-        });
+        } catch (error) {
+            console.log('Hubo un error: ', error);
+            setError('Hubo un error al intentar cargar los datos.', error)
+        } finally {
+            setIsLoading(false);
+        }
 
-        const pokemonData = await Promise.all(pokemonDataPromises);
-        setDatos(pokemonData);
     };
 
     useEffect(() => {
@@ -60,23 +39,30 @@ export const FetchApi = () => {
 
     return (
         <article className="contenedor">
+            {isLoading
+                ? <h2>Cargando...</h2>
+                : error
+                    ? <h2>Ocurrió un error: {error}</h2>
+                    : datos == null
+                        ? <h2>No hay datos disponibles</h2>
+                        : datos.map(dato => (
+                            <section key={dato.id} className="card contenedor">
 
-            {datos.map(dato => (
-                <section key={dato.id} className="card contenedor">
+                                <img src={dato.image} alt={dato.name} loading="lazy" />
 
-                    <img src={dato.image} alt={dato.name} />
+                                <p>N°{dato.id}</p>
 
-                    <p>N°{dato.id}</p>
+                                <h4>{dato.name}</h4>
+                                <div className="card_tipos">
+                                    {dato.tipo.map((tipo, tipoIndex) => (
+                                        <span key={tipoIndex} className={`badge ${tipo.toLowerCase()}`}>{tipo}</span>
+                                    ))}
+                                </div>
 
-                    <h4>{dato.name}</h4>
-                    <div className="card_tipos">
-                        {dato.tipo.map((tipo, tipoIndex) => (
-                            <span key={tipoIndex} className={`badge ${tipo.toLowerCase()}`}>{tipo}</span>
-                        ))}
-                    </div>
+                            </section>
+                        ))
+            }
 
-                </section>
-            ))}
         </article>
     );
 };
