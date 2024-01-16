@@ -40,16 +40,18 @@ export const FetchApi = () => {
     return (
         <article className="contenedor">
             {isLoading
-                ? <h2>Cargando...</h2>
+                ? <div className="loading-container">
+                    <div className="spinner"></div>
+                    <h2>Cargando...</h2></div>
                 : error
                     ? <h2>Ocurrió un error: {error}</h2>
-                    : datos == null
+                    : datos.length === 0
                         ? <h2>No hay datos disponibles</h2>
+
                         : datos.map(dato => (
                             <section key={dato.id} className="card contenedor">
 
                                 <img src={dato.image} alt={dato.name} loading="lazy" />
-
                                 <p>N°{dato.id}</p>
 
                                 <h4>{dato.name}</h4>
@@ -62,7 +64,6 @@ export const FetchApi = () => {
                             </section>
                         ))
             }
-
-        </article>
+        </article >
     );
 };

@@ -7,8 +7,13 @@
 
 .link {
     display: flex;
-    gap: 1rem;
+    gap: 2.4rem;
     align-items: center;
+}
+
+.link>div:first-child {
+    display: flex;
+    gap: 1rem;
 }
 
 h1 {
@@ -20,3 +25,44 @@ h1 {
     width: 50px;
     height: auto;
 }
+
+a {
+    transition: transform 0.2s ease-in-out;
+}
+
+a:hover {
+    transform: scale(1.2);
+}
+
+/* SWITCH PARA DARK MODE  */
+.switch {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.switch label {
+    width: 60px;
+    height: 30px;
+    padding: 2px 3px;
+    background-color: #ccc;
+    border-radius: 14px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+}
+
+.switch span {
+    width: 25px;
+    height: 25px;
+    background-color: #fff;
+    border-radius: 50%;
+    transition: transform 0.4s, background-color 0.2s;
+}
+
+#checkbox:checked+span {
+    transform: translateX(35px);
+    background-color: #383838;
+}
+
