@@ -17,15 +17,17 @@ const Header = () => {
                         </a>
                     </div>
 
-                    <div className='switch'>
+                    <div className='switch-padre'>
                         <Sol />
-                        <label>
-                            <input
-                                type="checkbox"
-                                id="checkbox"
-                                hidden />
-                            <span></span>
-                        </label>
+                        <input
+                            type="checkbox"
+                            id='checkbox'
+                            hidden
+                        />
+                        <label
+                            className='switch'
+                            htmlFor='checkbox'
+                        />
                         <Luna />
                     </div>
                 </div>
