@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { mapPokemonData } from "../js/mapPokemonData";
 import '../styles/fetchApi.css';
 
-function Pokemon({ id, image, name, tipo }) {
+const Pokemon = ({ id, image, name, tipo }) => {
     return (
         <section className="card contenedor">
 
@@ -58,7 +58,7 @@ export const FetchApi = () => {
     return (
         <article className="contenedor">
             {isLoading
-                ? <div className="loading-container">
+                ? <div className="contenedor loading-container">
                     <div className="spinner"></div>
                     <h2>Cargando...</h2></div>
                 : error
