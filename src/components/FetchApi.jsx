@@ -2,6 +2,24 @@ import { useEffect, useState } from "react";
 import { mapPokemonData } from "../js/mapPokemonData";
 import '../styles/fetchApi.css';
 
+function Pokemon({ id, image, name, tipo }) {
+    return (
+        <section className="card contenedor">
+
+            <img src={image} alt={name} loading="lazy" />
+            <p>N°{id}</p>
+
+            <h4>{name}</h4>
+            <div className="card_tipos">
+                {tipo.map((elemento, index) => (
+                    <span key={index} className={`badge ${elemento.toLowerCase()}`}>{elemento}</span>
+                ))}
+            </div>
+
+        </section>
+    );
+}
+
 export const FetchApi = () => {
     const [datos, setDatos] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
@@ -47,22 +65,7 @@ export const FetchApi = () => {
                     ? <h2>Ocurrió un error: {error}</h2>
                     : datos.length === 0
                         ? <h2>No hay datos disponibles</h2>
-
-                        : datos.map(dato => (
-                            <section key={dato.id} className="card contenedor">
-
-                                <img src={dato.image} alt={dato.name} loading="lazy" />
-                                <p>N°{dato.id}</p>
-
-                                <h4>{dato.name}</h4>
-                                <div className="card_tipos">
-                                    {dato.tipo.map((tipo, tipoIndex) => (
-                                        <span key={tipoIndex} className={`badge ${tipo.toLowerCase()}`}>{tipo}</span>
-                                    ))}
-                                </div>
-
-                            </section>
-                        ))
+                        : datos.map(dato => <Pokemon key={dato.id} {...dato} />)
             }
         </article >
     );
