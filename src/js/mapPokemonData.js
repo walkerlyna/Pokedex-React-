@@ -30,7 +30,7 @@ export const mapPokemonData = (pokemonData) => {
         name: pokemonData.name.charAt(0).toUpperCase() + pokemonData.name.slice(1),
         altura: pokemonData.height,
         skills: skills,
-        image: pokemonData.sprites.front_default,
+        image: pokemonData.sprites.front_default || pokemonData.sprites.front_default,
         imageShiny: pokemonData.sprites.front_shiny,
         tipo: tipo
     };

@@ -8,6 +8,7 @@ export const usePokemon = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
     const [siguiente, setSiguiente] = useState('');
+    const [verMas, setVerMas] = useState(true);
 
     const doFetch = async (url = URL_DEFAULT) => {
         try {
@@ -41,6 +42,7 @@ export const usePokemon = () => {
     const masPokemones = async () => {
         const { next, pokemonDataPromises } = await doFetch(siguiente);
         setDatos(prev => [...prev, ...pokemonDataPromises]);
+        next === null && setVerMas(false);
         setSiguiente(next);
     }
 
@@ -52,6 +54,7 @@ export const usePokemon = () => {
         datos,
         isLoading,
         error,
-        masPokemones
+        masPokemones,
+        verMas
     }
 }

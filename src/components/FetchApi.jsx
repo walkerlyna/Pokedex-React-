@@ -1,4 +1,5 @@
 import { usePokemon } from '../hooks/usePokemon';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import '../styles/fetchApi.css';
 
 const Pokemon = ({ id, image, name, tipo }) => {
@@ -21,21 +22,36 @@ const Pokemon = ({ id, image, name, tipo }) => {
 
 export const FetchApi = () => {
 
-    const { datos, isLoading, error, masPokemones } = usePokemon();
+    const { datos, isLoading, error, masPokemones, verMas } = usePokemon();
 
     return (
-        <article className="contenedor">
+
+        <InfiniteScroll
+            dataLength={datos.length}
+            next={masPokemones}
+            hasMore={verMas}
+            loader={<Loader />}
+            className='contenedor contenedor-poke'
+            style={{ overflow: 'hidden' }}
+        >
             {isLoading
                 ? <div className="loading-container">
-                    <div className="spinner"></div>
-                    <h2>Cargando...</h2></div>
+                    <div className="spinner"></div></div>
                 : error
                     ? <h2>Ocurrió un error: {error}</h2>
                     : datos.length === 0
                         ? <h2>No hay datos disponibles</h2>
                         : datos.map(dato => <Pokemon key={dato.id} {...dato} />)
             }
-            <button onClick={masPokemones}>Ver mas pokes</button>
-        </article >
+        </InfiniteScroll>
+
     );
 };
+
+const Loader = () => {
+    return (
+        <div className="loading-container">
+            <div className="spinner"></div>
+        </div>
+    )
+}
